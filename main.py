@@ -2,6 +2,10 @@ import os
 import Basic_Algorithm
 import networkx as nx
 import random
+import time
+import memory_profiler
+import Generate_DiffTpye_Graph
+
 debug = False
 
 
@@ -268,6 +272,39 @@ def main_generate_diversed_graph():
             return
 
 
+def main_BasicAlgOn_DiffG():
+# ===================================================================================================
+# 1, Explore different features of the graphs
+# 2, Generate\Find graph with different features
+# 3, Run Basic algorithms on different graphs and test the performance
+# ===================================================================================================
+    graph_types = [' ', ' ', ' ', 'complete']  # Replace with actual graph types or features
+
+    for graph_type in graph_types:
+        print(f"Generating {graph_type} graph...")
+    graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type)  # Replace with the actual function to generate graphs
+
+    # Run Dijkstra's algorithm and measure time and mem usage
+    start_time = time.time()
+    print(f"Running Dijkstra's algorithm on {graph_type} graph...")
+##======
+    result = basic_algorithm.dijkstra(graph)  # Assuming dijkstra is the function to run Dijkstra's algorithm
+##======
+    elapsed_time = time.time() - start_time
+    print(f"Time taken: {elapsed_time:.2f} seconds")
+
+    # Measure memory usage (optional)
+    mem_usage = memory_profiler.memory_usage((basic_algorithm.dijkstra, (graph,)))
+    print(f"Memory used: {mem_usage[0]:.2f} MiB")
+
+
+
+
+
+
 if __name__ == '__main__':
     #main_basic_algorithms()
-    main_generate_diversed_graph()
+    #main_generate_diversed_graph()
+
+    #main_BasicAlgOn_DiffG()
+    print("Done!")
