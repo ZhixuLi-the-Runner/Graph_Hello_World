@@ -187,16 +187,30 @@ def main_BasicAlgOn_DiffG():
 # 2, Generate\Find graph with different features
 # 3, Run Basic algorithms on different graphs and test the performance
 # ===================================================================================================
-    graph_types = ['dense', 'sparce ','tree', 'forrest',]  # Replace with actual graph types or features
+    graph_types = ['original','dense', 'sparse ','tree', 'forest','Pseudograph']  # Replace with actual graph types or features
 
 
-    print("\nPlease input the start node and end node for Relationship Graph:")
-    start = int(input())
-    end = int(input())
+    print("\nPlease input the start node and end node for Relationship Graph (e.g., '1 2' or '1' [enter] '2'):")
+    input_line = input()
+
+    # 尝试分割输入的字符串，如果只有一个数字则提示用户再次输入
+    nodes = input_line.split()
+
+    # 如果输入的是两个数字，则直接赋值
+    if len(nodes) == 2:
+        start, end = map(int, nodes)
+    # 如果输入的是一个数字，那么提示用户输入第二个数字
+    elif len(nodes) == 1:
+        start = int(nodes[0])
+        end = int(input())
+    else:
+        raise ValueError("Invalid input. Please enter the start and end nodes separated by a space or on new lines.")
+
+    print(f"Start node: {start}, End node: {end}")
     path='Original_data\\relationship_graph.txt'
     for graph_type in graph_types:
         print(f"Generating {graph_type} graph...")
-        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type)  # Replace with the actual function to generate graphs
+        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path)  # Replace with the actual function to generate graphs
         #print(f"Running Dijkstra's algorithm on {graph_type} graph...\n")
         ##----------------------------------------------------------------------
         # Run Dijkstra's algorithm and measure time and mem usage
@@ -206,31 +220,58 @@ def main_BasicAlgOn_DiffG():
         print(f"Shortest path length: {result}\n")
         print(f"Time taken: {elapsed_time:.2f} seconds")
 
-        # Measure memory usage (optional)
-        mem_usage = memory_profiler.memory_usage((Basic_Algorithm.dijkstra, (graph,)))
-        print(f"Memory used: {mem_usage[0]:.2f} MiB")
+    #     # Measure memory usage (optional)
+    #     #mem_usage = memory_profiler.memory_usage((Basic_Algorithm.dijkstra, (graph,start,end)))
+    #     #print(f"Memory used: {mem_usage[0]:.2f} MiB")
 
 ##----------------------------------------------------------------------
 
-    print("\nPlease input the start node and end node for Road Graph:")
-    start = int(input())
-    end = int(input())
+    print("\nPlease input the start node and end node for Road Graph (e.g., '1 2' or '1' [enter] '2'):")
+    input_line = input()
+
+    # 尝试分割输入的字符串，如果只有一个数字则提示用户再次输入
+    nodes = input_line.split()
+
+    # 如果输入的是两个数字，则直接赋值
+    if len(nodes) == 2:
+        start, end = map(int, nodes)
+    # 如果输入的是一个数字，那么提示用户输入第二个数字
+    elif len(nodes) == 1:
+        start = int(nodes[0])
+        end = int(input())
+    else:
+        raise ValueError("Invalid input. Please enter the start and end nodes separated by a space or on new lines.")
+
+    print(f"Start node: {start}, End node: {end}")
+
     path='Filtered_data\\roadNet-CA_filtered.txt'
     for graph_type in graph_types:
         print(f"Generating {graph_type} graph...")
         graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path)  # Replace with the actual function to generate graphs
+        # -------
+        # # 打印图的一小部分来调试
+        # print("Partial view of the generated graph (first 5 nodes):")
+        # node_count = 0
+        # for node, edges in graph.items():
+        #     print(f"Node {node}: {edges}")
+        #     node_count += 1
+        #     if node_count == 5:  # 只打印前5个节点
+        #         break
+        # # -------
+
         # print(f"Running Dijkstra's algorithm on {graph_type} graph...\n")
         ##----------------------------------------------------------------------
         # Run Dijkstra's algorithm and measure time and mem usage
         start_time = time.time()
         result = Basic_Algorithm.dijkstra(graph, start, end)  # Assuming dijkstra is the function to run
+
         elapsed_time = time.time() - start_time
-        print(f"Shortest path length: {result}\n")
+        print(f"Shortest path length: {result}")
         print(f"Time taken: {elapsed_time:.2f} seconds")
 
         # Measure memory usage (optional)
-        mem_usage = memory_profiler.memory_usage((Basic_Algorithm.dijkstra, (graph,)))
-        print(f"Memory used: {mem_usage[0]:.2f} MiB")
+        #mem_usage = memory_profiler.memory_usage((Basic_Algorithm.dijkstra, (graph,start,end)))
+        #print(f"Memory used: {mem_usage[0]:.2f} MiB")
 
 
 

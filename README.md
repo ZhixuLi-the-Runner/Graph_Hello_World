@@ -9,12 +9,10 @@
 
 
 
-- [ ] 
-
 
 ## 1,Select real dataset and run classic graph algorithms on it
 
-- [x] In  `Basic_Algorithm.py ` , I implemented `Dijkstra`, which could find out SSSP between 2 points, and `BFS`, which could count the size of a connected-component as well as the longest path started\ended at a point. 
+In  `Basic_Algorithm.py ` , I implemented `Dijkstra`, which could find out SSSP between 2 points, and `BFS`, which could count the size of a connected-component as well as the longest path started\ended at a point. 
 
 
 
@@ -23,17 +21,32 @@
 
 There are 3 general ideas about how to generate new graphs.
 
-- [ ] 1, Use domain-specific graph-generating pattern. Here my data is academic-relationship in physics field, so  I use 
+1, Use domain-specific graph-generating pattern. Here my data is academic-relationship in physics field, so  I use 
 
-- [ ] 2, Borrow graph processing ideas from existing papers.
+2, Borrow graph processing ideas from existing papers.
 
-- [ ] 3, Generate specific type of graph, like circled graph\ 
+3, Generate specific type of graph, like circled graph\ 
 
 ## 4,Generate different type of graphs and run basic algorithms on it. 
 
 We will try to generate\find different types of graph and then run basic graph algorithms on them.  By doing so, we hope to find future practical research ideas\methods. 
 
-- [ ] 
+| Graph\Algorithm       | Dijkstra(SSSP) | Size of Connected component(BFS) | ...  |      |
+| --------------------- | -------------- | -------------------------------- | ---- | ---- |
+| Original CA Road map  |                |                                  |      |      |
+| Original Relationship |                |                                  |      |      |
+| Tree                  |                |                                  |      |      |
+|                       |                |                                  |      |      |
+| Dense                 |                |                                  |      |      |
+|                       |                |                                  |      |      |
+| Sparce                |                |                                  |      |      |
+|                       |                |                                  |      |      |
+| Forrest               |                |                                  |      |      |
+|                       |                |                                  |      |      |
+|                       |                |                                  |      |      |
+| Pseudograph           |                |                                  |      |      |
+|                       |                |                                  |      |      |
+| ...                   |                |                                  |      |      |
 
 
 
