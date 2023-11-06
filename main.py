@@ -188,7 +188,8 @@ def main_BasicAlgOn_DiffG():
 # 2, Generate\Find graph with different features
 # 3, Run Basic algorithms on different graphs and test the performance
 # ===================================================================================================
-    graph_types = ['original','dense', 'sparse ','tree', 'forest','Pseudograph']  # Replace with actual graph types or features
+    graph_types = ['original','dense', 'tree', 'forest','Pseudograph','connected']  # Replace with actual graph types or features
+
     times_relationship = []
     times_road = []
 

@@ -25,28 +25,28 @@ There are 3 general ideas about how to generate new graphs.
 
 2, Borrow graph processing ideas from existing papers.
 
-3, Generate specific type of graph, like circled graph\ 
+3, Generate specific type of graph, like `part 4`
 
 ## 4,Generate different type of graphs and run basic algorithms on it. 
 
 We will try to generate\find different types of graph and then run basic graph algorithms on them.  By doing so, we hope to find future practical research ideas\methods. 
 
-| Graph\Algorithm       | Dijkstra(SSSP) | Size of Connected component(BFS) | ...  |      |
-| --------------------- | -------------- | -------------------------------- | ---- | ---- |
-| Original CA Road map  |                |                                  |      |      |
-| Original Relationship |                |                                  |      |      |
-| Tree                  |                |                                  |      |      |
-|                       |                |                                  |      |      |
-| Dense                 |                |                                  |      |      |
-|                       |                |                                  |      |      |
-| Sparce                |                |                                  |      |      |
-|                       |                |                                  |      |      |
-| Forrest               |                |                                  |      |      |
-|                       |                |                                  |      |      |
-|                       |                |                                  |      |      |
-| Pseudograph           |                |                                  |      |      |
-|                       |                |                                  |      |      |
-| ...                   |                |                                  |      |      |
+| Graph\Algorithm       | Dijkstra(SSSP) | Todo :Size of Connected component(BFS) | Todo: Max flow(min cut) | ...  |
+| --------------------- | -------------- | -------------------------------------- | ----------------------- | ---- |
+| Original CA Road map  |                |                                        |                         |      |
+| Original Relationship |                |                                        |                         |      |
+| Dense                 |                |                                        |                         |      |
+|                       |                |                                        |                         |      |
+| Tree                  |                |                                        |                         |      |
+|                       |                |                                        |                         |      |
+| Connected             |                |                                        |                         |      |
+|                       |                |                                        |                         |      |
+| Forest                |                |                                        |                         |      |
+|                       |                |                                        |                         |      |
+| Pseudograph           |                |                                        |                         |      |
+|                       |                |                                        |                         |      |
+|                       |                |                                        |                         |      |
+| ...                   |                |                                        |                         |      |
 
 
 
@@ -62,7 +62,7 @@ We will try to generate\find different types of graph and then run basic graph a
 
 # Index
 
- Existing Datasets 
+ Datasets 
 
 | Name                                                         | Domains                                                    |      |      |      |      |      |      |      |      |
 | ------------------------------------------------------------ | ---------------------------------------------------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
