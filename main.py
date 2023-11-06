@@ -4,8 +4,9 @@ import Generate_diversed_graph
 import random
 import time
 import memory_profiler
+import networkx as nx
 import Generate_DiffTpye_Graph
-
+import matplotlib.pyplot as plt
 debug = False
 
 
@@ -188,9 +189,10 @@ def main_BasicAlgOn_DiffG():
 # 3, Run Basic algorithms on different graphs and test the performance
 # ===================================================================================================
     graph_types = ['original','dense', 'sparse ','tree', 'forest','Pseudograph']  # Replace with actual graph types or features
+    times_relationship = []
+    times_road = []
 
-
-    print("\nPlease input the start node and end node for Relationship Graph (e.g., '1 2' or '1' [enter] '2'):")
+    print("\nPlease input the start node and end node for Relationship Graph (e.g., '676 3466' or '1' [enter] '2'):")
     input_line = input()
 
     # 尝试分割输入的字符串，如果只有一个数字则提示用户再次输入
@@ -217,6 +219,7 @@ def main_BasicAlgOn_DiffG():
         start_time = time.time()
         result = Basic_Algorithm.dijkstra(graph, start, end)  # Assuming dijkstra is the function to run
         elapsed_time = time.time() - start_time
+        times_relationship.append(elapsed_time)  # 将运行时间添加到列表中
         print(f"Shortest path length: {result}\n")
         print(f"Time taken: {elapsed_time:.2f} seconds")
 
@@ -226,7 +229,7 @@ def main_BasicAlgOn_DiffG():
 
 ##----------------------------------------------------------------------
 
-    print("\nPlease input the start node and end node for Road Graph (e.g., '1 2' or '1' [enter] '2'):")
+    print("\nPlease input the start node and end node for Road Graph (e.g., '16 420' or '1' [enter] '2'):")
     input_line = input()
 
     # 尝试分割输入的字符串，如果只有一个数字则提示用户再次输入
@@ -266,6 +269,7 @@ def main_BasicAlgOn_DiffG():
         result = Basic_Algorithm.dijkstra(graph, start, end)  # Assuming dijkstra is the function to run
 
         elapsed_time = time.time() - start_time
+        times_road.append(elapsed_time)  # 将运行时间添加到列表中
         print(f"Shortest path length: {result}")
         print(f"Time taken: {elapsed_time:.2f} seconds")
 
@@ -274,8 +278,24 @@ def main_BasicAlgOn_DiffG():
         #print(f"Memory used: {mem_usage[0]:.2f} MiB")
 
 
+    # 绘制条形图比较各图类型的Dijkstra算法运行时间
+    plt.figure(figsize=(10, 6))  # 设置图的大小
+    plt.bar(graph_types, times_relationship, color='skyblue')  # 创建条形图
+    plt.xlabel('Graph Type')  # 设置x轴标签
+    plt.ylabel('Time (seconds)')  # 设置y轴标签
+    plt.title('Dijkstra Algorithm Running Time for Different Graph Types based on relationship')  # 设置标题
+    plt.xticks(rotation=45)  # 将x轴标签旋转45度
+    plt.tight_layout()  # 自动调整子图参数,使之填充整个图像区域
+    plt.show()  # 显示图表
 
-
+    plt.figure(figsize=(10, 6))  # 设置图的大小
+    plt.bar(graph_types, times_road, color='skyblue')  # 创建条形图
+    plt.xlabel('Graph Type')  # 设置x轴标签
+    plt.ylabel('Time (seconds)')  # 设置y轴标签
+    plt.title('Dijkstra Algorithm Running Time for Different Graph Types based on road')  # 设置标题
+    plt.xticks(rotation=45)  # 将x轴标签旋转45度
+    plt.tight_layout()  # 自动调整子图参数,使之填充整个图像区域
+    plt.show()  # 显示图表
 
 
 

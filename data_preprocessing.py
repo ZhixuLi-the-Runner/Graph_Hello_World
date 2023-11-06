@@ -1,4 +1,4 @@
-input_file_path = 'Original_data\\roadNet-CA.txt'  # Corrected file path
+input_file_path = ('Original_data\\roadNet-CA\\roadNet-CA.txt')  # Corrected file path
 output_file_path = 'Filtered_data\\roadNet-CA_filtered.txt'
 
 
@@ -13,7 +13,7 @@ def filter_nodes(input_file_path, output_file_path):
             node_ids = line.strip().split()
 
             # Check if both node IDs are below 50000
-            if int(node_ids[0]) < 50000 and int(node_ids[1]) < 50000:
+            if int(node_ids[0]) < 10000 and int(node_ids[1]) < 10000:
                 outfile.write(line)
 
 
