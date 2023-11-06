@@ -1,6 +1,6 @@
 import os
 import Basic_Algorithm
-import networkx as nx
+import Generate_diversed_graph
 import random
 import time
 import memory_profiler
@@ -156,97 +156,6 @@ def assign_age_and_get_adj_list(graph, threshold_degree):
 
 #===================================================================================================
 
-def load_aged_and_relationship_graph():
-    graph = nx.Graph()
-
-    # Load relationship graph
-    with open('relationship graph.txt', 'r') as file:
-        lines = file.readlines()[4:]  # Skip the header
-        for line in lines:
-            node1, node2 = map(int, line.strip().split('\t'))
-            graph.add_edge(node1, node2)
-
-    # Load aged graph
-    aged_data = {}
-    with open('Generate_graph/aged_graph.txt', 'r') as file:
-        lines = file.readlines()
-        for line in lines:
-            parts = line.strip().split(';')
-            node_name = int(parts[0])
-            degree = int(parts[1])
-            neighbors = list(map(int, parts[2][1:-1].split()))
-            age = int(parts[3])
-            aged_data[node_name] = {'degree': degree, 'neighbors': neighbors, 'age': age}
-
-    return graph, aged_data
-
-# 定义各个子任务的函数
-def update_ages(aged_data):
-    pass
-
-
-def research_interest_collaboration(graph, aged_data):
-    pass
-
-
-def young_scholar_activity(graph, aged_data):
-    pass
-
-
-def expand_collaboration_network(graph, aged_data):
-    pass
-
-
-def academic_conference_impact(graph, aged_data):
-    pass
-
-
-def new_scholars_join(graph, aged_data):
-    pass
-
-
-def scholar_death(graph, aged_data):
-    pass
-
-
-def save_updated_graphs(graph, aged_data, i):
-    filename = f'timeline_{i}_.txt'
-    # 保存图和年龄数据到文件
-    pass
-
-
-def time_pass_by():
-    # 读取初始数据
-    graph, aged_data = load_aged_and_relationship_graph()
-
-    # 年龄更新
-    update_ages(aged_data)
-
-    # 研究兴趣相似的学者合作
-    research_interest_collaboration(graph, aged_data)
-
-    # 年轻学者活跃度
-    young_scholar_activity(graph, aged_data)
-
-    # 合作网络扩展
-    expand_collaboration_network(graph, aged_data)
-
-    # 学术会议和活动影响
-    academic_conference_impact(graph, aged_data)
-
-    # 新学者加入
-    new_scholars_join(graph, aged_data)
-
-    # 学者死亡
-    scholar_death(graph, aged_data)
-
-    # 输出更新
-    i = 1  # 假设时间流逝了1年
-    save_updated_graphs(graph, aged_data, i)
-
-
-
-
 #===================================================================================================
 
 def main_generate_diversed_graph():
@@ -266,7 +175,7 @@ def main_generate_diversed_graph():
         elif choice == '2':
             None;
         elif choice == '3':
-            time_pass_by()
+            Generate_diversed_graph.time_pass_by()
 
         elif choice == '-1':
             return
@@ -278,24 +187,57 @@ def main_BasicAlgOn_DiffG():
 # 2, Generate\Find graph with different features
 # 3, Run Basic algorithms on different graphs and test the performance
 # ===================================================================================================
-    graph_types = [' ', ' ', ' ', 'complete']  # Replace with actual graph types or features
+    graph_types = ['dense', 'sparce ','tree', 'forrest',]  # Replace with actual graph types or features
 
+
+    print("\nPlease input the start node and end node for Relationship Graph:")
+    start = int(input())
+    end = int(input())
+    path='Original_data\\relationship_graph.txt'
     for graph_type in graph_types:
         print(f"Generating {graph_type} graph...")
-    graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type)  # Replace with the actual function to generate graphs
+        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type)  # Replace with the actual function to generate graphs
+        #print(f"Running Dijkstra's algorithm on {graph_type} graph...\n")
+        ##----------------------------------------------------------------------
+        # Run Dijkstra's algorithm and measure time and mem usage
+        start_time = time.time()
+        result = Basic_Algorithm.dijkstra(graph, start, end)  # Assuming dijkstra is the function to run
+        elapsed_time = time.time() - start_time
+        print(f"Shortest path length: {result}\n")
+        print(f"Time taken: {elapsed_time:.2f} seconds")
 
-    # Run Dijkstra's algorithm and measure time and mem usage
-    start_time = time.time()
-    print(f"Running Dijkstra's algorithm on {graph_type} graph...")
-##======
-    result = basic_algorithm.dijkstra(graph)  # Assuming dijkstra is the function to run Dijkstra's algorithm
-##======
-    elapsed_time = time.time() - start_time
-    print(f"Time taken: {elapsed_time:.2f} seconds")
+        # Measure memory usage (optional)
+        mem_usage = memory_profiler.memory_usage((Basic_Algorithm.dijkstra, (graph,)))
+        print(f"Memory used: {mem_usage[0]:.2f} MiB")
 
-    # Measure memory usage (optional)
-    mem_usage = memory_profiler.memory_usage((basic_algorithm.dijkstra, (graph,)))
-    print(f"Memory used: {mem_usage[0]:.2f} MiB")
+##----------------------------------------------------------------------
+
+    print("\nPlease input the start node and end node for Road Graph:")
+    start = int(input())
+    end = int(input())
+    path='Filtered_data\\roadNet-CA_filtered.txt'
+    for graph_type in graph_types:
+        print(f"Generating {graph_type} graph...")
+        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path)  # Replace with the actual function to generate graphs
+        # print(f"Running Dijkstra's algorithm on {graph_type} graph...\n")
+        ##----------------------------------------------------------------------
+        # Run Dijkstra's algorithm and measure time and mem usage
+        start_time = time.time()
+        result = Basic_Algorithm.dijkstra(graph, start, end)  # Assuming dijkstra is the function to run
+        elapsed_time = time.time() - start_time
+        print(f"Shortest path length: {result}\n")
+        print(f"Time taken: {elapsed_time:.2f} seconds")
+
+        # Measure memory usage (optional)
+        mem_usage = memory_profiler.memory_usage((Basic_Algorithm.dijkstra, (graph,)))
+        print(f"Memory used: {mem_usage[0]:.2f} MiB")
+
+
+
+
+
+
+
 
 
 
@@ -306,5 +248,5 @@ if __name__ == '__main__':
     #main_basic_algorithms()
     #main_generate_diversed_graph()
 
-    #main_BasicAlgOn_DiffG()
+    main_BasicAlgOn_DiffG()
     print("Done!")
