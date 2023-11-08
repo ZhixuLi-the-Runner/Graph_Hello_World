@@ -1,7 +1,7 @@
 # Graph_Hello_World
 ### In this repository, we will:
 - First, run some basic algorithm on graphs
-- Second, try to add errors\bugs\faults into graph\code, then apply delta debugging(and other SE techniques) to make everything correct again.
+- 2, try to add errors\bugs\faults into graph\code, then apply delta debugging(and other SE techniques) to make everything correct again.
 - 3, try to diverse single graph to set of graphs.
 - 4, Generate different type of graphs and run basic algorithms on it. 
 
@@ -12,7 +12,11 @@
 
 ## 1,Select real dataset and run classic graph algorithms on it
 
-In  `Basic_Algorithm.py ` , I implemented `Dijkstra`, which could find out SSSP between 2 points, and `BFS`, which could count the size of a connected-component as well as the longest path started\ended at a point. 
+In  `Basic_Algorithm.py ` , I implemented:
+
+- `Dijkstra`, which could find out SSSP between 2 points.
+-  `BFS`, which could count the size of a connected-component as well as the longest path started\ended at a point.
+- `Max-flow`, which calculate max possible flow that from 2 point, here I take Dinic's method. This algorithm could also used for min-cut problem. 
 
 
 
@@ -31,22 +35,22 @@ There are 3 general ideas about how to generate new graphs.
 
 We will try to generate\find different types of graph and then run basic graph algorithms on them.  By doing so, we hope to find future practical research ideas\methods. 
 
-| Graph\Algorithm       | Dijkstra(SSSP) | Todo :Size of Connected component(BFS) | Todo: Max flow(min cut) | ...  |
-| --------------------- | -------------- | -------------------------------------- | ----------------------- | ---- |
-| Original CA Road map  |                |                                        |                         |      |
-| Original Relationship |                |                                        |                         |      |
-| Dense                 |                |                                        |                         |      |
-|                       |                |                                        |                         |      |
-| Tree                  |                |                                        |                         |      |
-|                       |                |                                        |                         |      |
-| Connected             |                |                                        |                         |      |
-|                       |                |                                        |                         |      |
-| Forest                |                |                                        |                         |      |
-|                       |                |                                        |                         |      |
-| Pseudograph           |                |                                        |                         |      |
-|                       |                |                                        |                         |      |
-|                       |                |                                        |                         |      |
-| ...                   |                |                                        |                         |      |
+| Graph\Algorithm       | Dijkstra(SSSP) | Size of Connected component(BFS) | Max flow(min cut) | ...  |
+| --------------------- | -------------- | -------------------------------- | ----------------- | ---- |
+| Original CA Road map  |                |                                  |                   |      |
+| Original Relationship |                |                                  |                   |      |
+| Dense                 |                |                                  |                   |      |
+|                       |                |                                  |                   |      |
+| Tree                  |                |                                  |                   |      |
+|                       |                |                                  |                   |      |
+| Connected             |                |                                  |                   |      |
+|                       |                |                                  |                   |      |
+| Forest                |                |                                  |                   |      |
+|                       |                |                                  |                   |      |
+| Pseudograph           |                |                                  |                   |      |
+|                       |                |                                  |                   |      |
+|                       |                |                                  |                   |      |
+| ...                   |                |                                  |                   |      |
 
 
 
