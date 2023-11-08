@@ -7,17 +7,24 @@ import memory_profiler
 import networkx as nx
 import Generate_DiffTpye_Graph
 import matplotlib.pyplot as plt
+
 debug = False
 
 
+
+
+
+
+
 def build_graph(file_path):
+    #read txt file and build graph for Dijkstra, BFS, Max_flow
     graph = {}
     with open(file_path, 'r') as file:
         for line in file:
             if line[0] != '#' and line.strip():  # 跳过注释行和空行
                 parts = line.strip().split()
                 from_node, to_node = map(int, parts[:2])
-                weight = int(parts[2]) if len(parts) > 2 else 1
+                weight = int(parts[2]) if len(parts) > 2 else 1#如果没有输入权重，默认权重为1
                 graph.setdefault(from_node, []).append((to_node, weight))
                 graph.setdefault(to_node, []).append((from_node, weight))  # 为无向图添加反向边
     return graph
@@ -46,6 +53,7 @@ def display_menu():
     print("2. 查询最长半径长度")
     print("3. 查询最两点间短路径长度")
     print("0. 退出")
+    print("4. 两点间最大流")
 
 def display_menu_gg():
     print("请选择一个选项：")
@@ -58,15 +66,13 @@ def display_menu_gg():
 
 def main_basic_algorithms():
     graph = None  # 初始化图为 None
-    file_path = 'relationship graph.txt'
+    file_path = 'Original_data\\relationship_graph.txt'
     graph = build_graph(file_path)
     while True:
         display_menu()  # 显示菜单
         choice = input("请输入你的选择：")
         if choice == '-1':
             return
-
-
         elif choice == '1':
             if graph is None:
                 print("请先构建图。")
@@ -112,6 +118,19 @@ def main_basic_algorithms():
                 print(f'节点 {start_node} 和节点 {end_node} 之间的最短路径长度是 {shortest_distance}')
         elif choice == '0':
             break  # 退出循环，结束程序
+        elif choice == '4':
+            if graph is None:
+                print("请先构建图。")
+                continue
+            try:
+                start_node = int(input("请输入起点："))
+                end_node = int(input("请输入终点："))
+            except ValueError:
+                print("请输入有效的节点编号。")
+                continue
+            max_flow = Basic_Algorithm.Max_fow(graph, start_node, end_node)
+            print(f'节点 {start_node} 和节点 {end_node} 之间的最大流是 {max_flow}')
+
         else:
             print("无效的选择，请重新输入。")
 
@@ -307,8 +326,8 @@ def main_BasicAlgOn_DiffG():
 
 
 if __name__ == '__main__':
-    #main_basic_algorithms()
+    main_basic_algorithms()
     #main_generate_diversed_graph()
 
-    main_BasicAlgOn_DiffG()
+    #main_BasicAlgOn_DiffG()
     print("Done!")
