@@ -2,7 +2,7 @@
 # Idea one: modeling the reality: some people will born and some ppl will grow older,that is, people will meet more people but will die in certain age.
 # Idea two: merge nodes with close relationship
 #
-
+import random
 import networkx as nx
 def load_aged_and_relationship_graph():
     graph = nx.Graph()
@@ -92,5 +92,42 @@ def time_pass_by():
     i = 1  # 假设时间流逝了1年
     save_updated_graphs(graph, aged_data, i)
 
+def calculate_degree(graph, node):
+    return graph.degree(node, weight='weight')
 
+def find_kth_largest_degree(graph, k):
+    degrees = [d for n, d in graph.degree(weight='weight')]
+    return quickselect(degrees, 0, len(degrees)-1, k)
+
+def quickselect(arr, low, high, k):
+    if low <= high:
+        pi = partition(arr, low, high)
+        if pi == k:
+            return arr[pi]
+        elif pi < k:
+            return quickselect(arr, pi + 1, high, k)
+        else:
+            return quickselect(arr, low, pi - 1, k)
+    return -1
+
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low, high):
+        if arr[j] >= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
+
+def assign_age_and_get_adj_list(graph, threshold_degree):
+    adjacency_list = []
+    for node in graph.nodes:
+        degree = calculate_degree(graph, node)
+        neighbors = list(graph.neighbors(node))
+        is_big_fish = degree >= threshold_degree
+        age = random.randint(30, 70) if is_big_fish else random.randint(20, 60)
+        graph.nodes[node]['age'] = age
+        adjacency_list.append(f"{node} {degree} [{' '.join(map(str, neighbors))}] {age}")
+    return adjacency_list
 

@@ -1,6 +1,26 @@
 import random
 import heapq
 from collections import deque
+import os
+import matplotlib.pyplot as plt
+import networkx as nx
+
+
+def save_original_graph(graph, file_path):
+    if not os.path.exists(file_path):
+        with open(file_path, "w") as file:
+            for node, edges in graph.items():
+                for edge in edges:
+                    file.write(f"{node} {edge[0]} {edge[1]}\n")
+
+
+def save_processed_graph(graph, file_path):
+    with open(file_path, "w") as file:
+        for node, edges in graph.items():
+            for edge in edges:
+                file.write(f"{node} {edge[0]} {edge[1]}\n")
+
+
 def print_partial_graph(graph, num_nodes_to_print=5):
     print("Partial view of the generated graph:")
     for node, edges in list(graph.items())[:num_nodes_to_print]:
@@ -179,11 +199,36 @@ def build_graph(file_path):
                 graph.setdefault(to_node, []).append((from_node, weight))  # 为无向图添加反向边
     return graph
 
-def Generate_graphs(graph_type, file_path):
+
+def display_graph(file_path):
+    # 创建一个空的图形
+    G = nx.Graph()
+    print("drawing graph...")
+    # 从文件中读取图形数据
+    with open(file_path, 'r') as file:
+        for line in file:
+            parts = line.strip().split()
+            if len(parts) == 3:
+                from_node, to_node, weight = map(int, parts)
+                G.add_edge(from_node, to_node, weight=weight)
+
+    # 绘制图形
+    pos = nx.spring_layout(G)  # 定义一个布局
+    nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=700, edge_color='black')
+
+    # 显示边的权重
+    #edge_labels = nx.get_edge_attributes(G, 'weight')
+    #nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+
+    # 显示图形
+    plt.show()
+
+
+def Generate_graphs(graph_type, file_path,table):
     # Read the original graph from the file
     graph = build_graph(file_path)
 
-
+    save_original_graph(graph, r"Generate_graph\original_graph.txt")
     # Convert the graph based on the specified graph type
 
     if graph_type == 'dense':
@@ -202,8 +247,10 @@ def Generate_graphs(graph_type, file_path):
         new_graph = convert_to_connected(graph)
     else:
         raise ValueError(f"Unknown graph type: {graph_type}")
-
+    save_processed_graph(new_graph, fr"Generate_graph\{table}_{graph_type}.txt")
     # Optionally, return the new graph or write it to a file
+
+    #display_graph(fr"Generate_graph\{table}_{graph_type}.txt")
     return new_graph
 
 

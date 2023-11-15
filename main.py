@@ -1,10 +1,10 @@
 import os
 import Basic_Algorithm
-import Generate_diversed_graph
-import random
+
 import time
 import memory_profiler
 import networkx as nx
+import Generate_diversed_graph
 import Generate_DiffTpye_Graph
 import matplotlib.pyplot as plt
 
@@ -65,9 +65,17 @@ def display_menu_gg():
 #===================================================================================================
 
 def main_basic_algorithms():
+    print("#############################################\n ##Basic Agorithm demo for relationship graph##\n#############################################")
+
     graph = None  # 初始化图为 None
     file_path = 'Original_data\\relationship_graph.txt'
     graph = build_graph(file_path)
+
+    print("relationship graph loaded")
+    # Print first 6 lines of the graph
+    for line in list(graph.items())[:6]:
+        print(line)
+
     while True:
         display_menu()  # 显示菜单
         choice = input("请输入你的选择：")
@@ -75,7 +83,7 @@ def main_basic_algorithms():
             return
         elif choice == '1':
             if graph is None:
-                print("请先构建图。")
+                print("Graph Empty")
                 continue
             try:
                 node = int(input("请输入节点序号："))
@@ -89,7 +97,7 @@ def main_basic_algorithms():
                 print(f'与节点 {node} 直接或间接连接的节点总数是 {num_connected}')
         elif choice == '2':
             if graph is None:
-                print("请先构建图。")
+                print("Graph Empty")
                 continue
             try:
                 node = int(input("请输入节点序号："))
@@ -103,7 +111,7 @@ def main_basic_algorithms():
                 print(f'以节点 {node} 为中心的半径长度是 {longest_distance}')
         elif choice == '3':
             if graph is None:
-                print("请先构建图。")
+                print("Graph Empty")
                 continue
             try:
                 start_node = int(input("请输入起点："))
@@ -120,7 +128,7 @@ def main_basic_algorithms():
             break  # 退出循环，结束程序
         elif choice == '4':
             if graph is None:
-                print("请先构建图。")
+                print("Graph Empty")
                 continue
             try:
                 start_node = int(input("请输入起点："))
@@ -135,44 +143,7 @@ def main_basic_algorithms():
             print("无效的选择，请重新输入。")
 
 #---------------------------------------------
-def calculate_degree(graph, node):
-    return graph.degree(node, weight='weight')
 
-def find_kth_largest_degree(graph, k):
-    degrees = [d for n, d in graph.degree(weight='weight')]
-    return quickselect(degrees, 0, len(degrees)-1, k)
-
-def quickselect(arr, low, high, k):
-    if low <= high:
-        pi = partition(arr, low, high)
-        if pi == k:
-            return arr[pi]
-        elif pi < k:
-            return quickselect(arr, pi + 1, high, k)
-        else:
-            return quickselect(arr, low, pi - 1, k)
-    return -1
-
-def partition(arr, low, high):
-    pivot = arr[high]
-    i = low - 1
-    for j in range(low, high):
-        if arr[j] >= pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
-
-def assign_age_and_get_adj_list(graph, threshold_degree):
-    adjacency_list = []
-    for node in graph.nodes:
-        degree = calculate_degree(graph, node)
-        neighbors = list(graph.neighbors(node))
-        is_big_fish = degree >= threshold_degree
-        age = random.randint(30, 70) if is_big_fish else random.randint(20, 60)
-        graph.nodes[node]['age'] = age
-        adjacency_list.append(f"{node} {degree} [{' '.join(map(str, neighbors))}] {age}")
-    return adjacency_list
 
 #===================================================================================================
 
@@ -187,8 +158,8 @@ def main_generate_diversed_graph():
         choice = input("请输入你的选择：")
         if choice == '1':
             total_nodes = len(graph.nodes)
-            threshold_degree = find_kth_largest_degree(graph, total_nodes * 3 // 10)
-            adjacency_list = assign_age_and_get_adj_list(graph, threshold_degree)
+            threshold_degree = Generate_diversed_graph.find_kth_largest_degree(graph, total_nodes * 3 // 10)
+            adjacency_list = Generate_diversed_graph.assign_age_and_get_adj_list(graph, threshold_degree)
             with open('Generate_graph/aged_graph.txt', 'w') as file:
                 file.write('\n'.join(adjacency_list))
 
@@ -207,6 +178,7 @@ def main_BasicAlgOn_DiffG():
 # 2, Generate\Find graph with different features
 # 3, Run Basic algorithms on different graphs and test the performance
 # ===================================================================================================
+    print("#############################################\n ##Generating Different graph types demo for relationship graph and CA road graph##\n#############################################")
     graph_types = ['original','dense', 'tree', 'forest','Pseudograph','connected']  # Replace with actual graph types or features
 
     times_relationship = []
@@ -232,7 +204,7 @@ def main_BasicAlgOn_DiffG():
     path='Original_data\\relationship_graph.txt'
     for graph_type in graph_types:
         print(f"Generating {graph_type} graph...")
-        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path)  # Replace with the actual function to generate graphs
+        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path,"relationship")  # Replace with the actual function to generate graphs
         #print(f"Running Dijkstra's algorithm on {graph_type} graph...\n")
         ##----------------------------------------------------------------------
         # Run Dijkstra's algorithm and measure time and mem usage
@@ -270,7 +242,7 @@ def main_BasicAlgOn_DiffG():
     path='Filtered_data\\roadNet-CA_filtered.txt'
     for graph_type in graph_types:
         print(f"Generating {graph_type} graph...")
-        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path)  # Replace with the actual function to generate graphs
+        graph = Generate_DiffTpye_Graph.Generate_graphs(graph_type,path,"CAroad")  # Replace with the actual function to generate graphs
         # -------
         # # 打印图的一小部分来调试
         # print("Partial view of the generated graph (first 5 nodes):")
@@ -328,6 +300,5 @@ def main_BasicAlgOn_DiffG():
 if __name__ == '__main__':
     main_basic_algorithms()
     #main_generate_diversed_graph()
-
-    #main_BasicAlgOn_DiffG()
+    main_BasicAlgOn_DiffG()
     print("Done!")
