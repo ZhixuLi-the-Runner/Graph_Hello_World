@@ -1,6 +1,104 @@
 # Graph_Hello_World
+## Function for each file
+
+| Name               | Description                                 |
+| ------------------ | ------------------------------------------- |
+| Basic_algorithm.py | Classic graph algorithm for raw input graph |
+| main.py            | main function that call other function      |
+|                    |                                             |
+|                    |                                             |
+|                    |                                             |
+|                    |                                             |
+
+
+
+### Experiment 1: AFL for graph input
+
+We will run  testing tools like AFL、JQF for graph input with different characteristics and see what could remain after running such testing tools.
+
+### AFL test
+
+#### AFL install and hello world
+
+Run a AFL hello world program
+
+First , install AFL
+
+```bash
+sudo apt update
+sudo apt install afl
+```
+
+then write a hello program
+
+```bash
+cd ~;mkdir AFL_helloworld
+vim hello.c
+```
+
+then input  a simple test case
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+
+```
+
+Then compile this program with AFL's compiler, which could **insert necessary testing code**
+
+```
+ afl-gcc -o hello hello.c
+```
+
+then we are ready to run AFL fuzzing test
+
+```bash
+mkdir input; echo "example" > input/example.txt;mkdir output
+```
+
+here the input and output are folders that store **initial input**  and **testing result**.
+
+```bash
+afl-fuzz -i input -o output -- ./hello
+```
+
+#### When to finish
+
+AFL doesn't have a predefined end point, needing manually stop(until system resources are exhausted)
+
+Here are the common scenarios when you might choose to stop it:
+
+1. **Sufficient Coverage Achieved**: If AFL has been running for a significant amount of time and the code coverage or the discovery of new paths has **plateaued**, it might be a good time to stop.
+2. **Resources Limitation**: If the system starts to struggle due to resource limitations like CPU, memory, or disk space, it might be necessary to stop the fuzzing process.
+3. **Finding Bugs**: If AFL has found critical bugs that need to be addressed, you might stop the process, fix the bugs, and then restart fuzzing.
+4. **Time Constraints**: In some cases, you might have a specific time frame for fuzzing. Once this time is up, you would stop the process.
+
+You can `Ctrl + C` to end AFL.
+
+#### AFL result analysis
+
+The `output `  folder have multiple subfolders and files, including
+
+| Name         | store                                           |
+| ------------ | ----------------------------------------------- |
+| queue/       | All input that cause specific crashes and hangs |
+| crashes/     | input that cause crashes                        |
+| hangs/       | input that cause hang\overtime                  |
+| fuzzer_stats |                                                 |
+| plot_data    |                                                 |
+| fuzz_bitmap  |                                                 |
+
+
+
+
+
 ### In this repository, we will:
-- First, run some basic algorithm on graphs
+
+- 
 - 2, try to add errors\bugs\faults into graph\code, then apply delta debugging(and other SE techniques) to make everything correct again.
 - 3, try to diverse single graph to set of graphs.
 - 4, Generate different type of graphs and run basic algorithms on it. 
